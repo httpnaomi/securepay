@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "309246116680",
+    "project_id": "seraphic-amp-459917-p5",
+    "storage_bucket": "seraphic-amp-459917-p5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309246116680:android:6524b4953e1fb87489697d",
+        "android_client_info": {
+          "package_name": "com.example.securepay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlZwuA3KwlOeREllCj8Z4RpR7TqWZL9kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
