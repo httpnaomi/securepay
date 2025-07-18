@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:securepay/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (context) => const LoginPage(),
       );
   const LoginPage({super.key});
@@ -22,6 +23,28 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
     super.dispose();
   }
+
+
+  Future<void> loginUserEmailAndPassword() async {
+    try {
+      // Logic to log in a user
+      // This involves calling backend server provider for our project which is firebase Firebase Auth
+      final userCredential = 
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      print(userCredential.user?.email);
+    } on FirebaseAuthException catch (e) {
+      // Handle errors here, such as showing a dialog or a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.message}')),
+      );
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

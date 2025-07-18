@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:securepay/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
+  static MaterialPageRoute route() => MaterialPageRoute(
         builder: (context) => const SignUpPage(),
       );
   const SignUpPage({super.key});
@@ -21,6 +22,33 @@ class _SignUpPageState extends State<SignUpPage> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> createUserEmailAndPassword() async {
+    try{
+    // Logic to create a user account
+    // This involves calling  backend server provider for our project which is firebase Firebase Auth
+    final userCredential =  
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    );print(userCredential.user?.email);
+    } on FirebaseAuthException catch (e) {
+      // Handle errors here, such as showing a dialog or a snackbar
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The password provided is too weak.')),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('The account already exists for that email.')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${e.message}')),
+        );
+      }
+    }
   }
 
   @override
@@ -58,7 +86,9 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await createUserEmailAndPassword();
+                },
                 child: const Text(
                   'SIGN UP',
                   style: TextStyle(
