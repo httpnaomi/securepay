@@ -6,3 +6,4 @@ Lets use camelCase
 
 dart pub global activate flutterfire_cli
 run every time
+naaomi
